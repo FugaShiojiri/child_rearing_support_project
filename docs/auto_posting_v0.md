@@ -22,7 +22,7 @@
 
 | 原則 | 本設計での対応 |
 |---|---|
-| **Claude Code Max 以外は課金不可** | X API 無料枠 / note Playwright / Threads API / Meta API / 無料画像ホスティング を採用 |
+| **Claude Code Max 以外は課金不可** | note Playwright / Threads API / Meta API / 無料画像ホスティング を採用。**X は API 無料プラン廃止のため自動化せず CEO 手動コピペ運用** |
 | **販売コンテンツは CEO 目視確認** | 全プラットフォームで「承認ステップ」を必須化 |
 | **人手介入最小化** | 生成・整形・スケジューリングは自動化、承認のみ人間 |
 | **配信主軸 note** | note 投稿を最優先プラットフォームとして実装 |
@@ -64,32 +64,32 @@
 
 ### 1. X (Twitter)
 
-**手法**: X API 無料枠 + OAuth 2.0 PKCE 認証
+**⚠️ 重要更新（2026-05-14）**: X API のフリープランは **2026年2月に廃止**。現行プランは Pay-Per-Use（最低$5）/ Basic $200/月 / Pro $5,000/月 のみ。本プロジェクトは「Claude Code Max 以外課金不可」方針のため、**X 自動投稿は採用しない**。
+
+**手法**: **CEO によるコピペ運用**（手動）
 
 | 項目 | 内容 |
 |---|---|
-| API | https://developer.x.com/ で取得 |
-| 無料枠 | **月1,500投稿まで無料** |
-| 認証 | OAuth 2.0 PKCE（`tweet.write` スコープ） |
-| トークン管理 | macOS Keychain（または `.env` + .gitignore） |
-| 必要ライブラリ | `tweepy` または直接 curl/requests |
-| 鍵更新 | アクセストークンは長期有効、初回認証時のみブラウザフロー |
+| API 利用 | なし（無料プラン廃止のため） |
+| 投稿手段 | CEO がスマホ・PC で手動投稿 |
+| Claude Code の役割 | X 用テキストドラフトの生成と整形 |
 
 **実装ファイル構成**:
 ```
-.claude/skills/post-x.md       ← Claude Code スキル定義
-scripts/post_x.py              ← Python 投稿スクリプト
-scripts/x_auth.py              ← OAuth 認証フロー
-.env                           ← API キー（.gitignore 対象）
+docs/drafts/x/                 ← Claude Code が生成するドラフト置き場
+.claude/skills/show-x-today.md ← 今日の承認済み X 投稿を一覧表示するヘルパー
+（post_x.py は作らない）
 ```
 
 **運用フロー**:
-1. CEO が初回認証（1回だけ・5分）
-2. Claude Code: ドラフト生成 → `docs/drafts/x/YYYY-MM-DD.md` に保存
-3. CEO: ドラフトをレビュー、`approved: true` 設定
-4. `/post-x` コマンド実行 → 承認分のみ自動投稿
+1. Claude Code: ドラフト生成 → `docs/drafts/x/YYYY-MM-DD.md` に保存
+2. CEO: ドラフトをレビュー、`approved: true` 設定
+3. `/show-x-today` 実行 → 承認済みポストをコピーしやすい形で表示
+4. CEO がスマホ・PC で X にコピペ投稿
 
 **コスト**: ¥0
+
+**将来の自動化条件**: X が無料 API を復活させたら再検討
 
 ---
 
@@ -266,14 +266,13 @@ image: assets/2026-05-14.png  # Instagram のみ
 - [ ] ドラフト用フォルダ `docs/drafts/{x,note,threads,instagram}/` 作成
 - [ ] `scripts/` フォルダ作成
 
-### Phase 2 (Week 3-4): X / Threads 実装（先行）
+### Phase 2 (Week 3-4): Threads 実装（自動化の最初の一歩）
 
-- [ ] `scripts/post_x.py` 実装
-- [ ] `.claude/skills/post-x.md` 作成
 - [ ] `scripts/post_threads.py` 実装
 - [ ] `.claude/skills/post-threads.md` 作成
+- [ ] `.claude/skills/show-x-today.md`（X 手動投稿支援ヘルパー）作成
 - [ ] CEO 承認フロー（approved: true 一覧）の検証
-- [ ] 月3本程度で試験運用
+- [ ] Threads で月3本程度の試験運用
 
 ### Phase 3 (Week 5-): note 実装
 
@@ -298,7 +297,7 @@ image: assets/2026-05-14.png  # Instagram のみ
 
 | リスク | 対策 |
 |---|---|
-| X API 無料枠超過 | 月1,500投稿の上限を Phase 1 で計測、超えそうなら配信頻度調整 |
+| X API 無料プラン廃止（既知） | 自動化せず CEO 手動コピペで運用。Claude Code はドラフト生成のみ |
 | Meta トークン60日失効 | `meta_token_refresh.py` を月1回 cron 実行、CEO にリマインド通知 |
 | note UI 変更でセレクター破綻 | Playwright を `headless=False` で月1回手動確認、CI/CD に組み込まない |
 | ブラウザ自動化のボット判定 | 1日数本に抑制、間隔3秒以上、ユーザーエージェント設定 |
