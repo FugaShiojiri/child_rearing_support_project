@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ひだまりこそだち ロゴマーク v0 案B
+  コンセプト: 縁側に差し込む午後の光 / Engawa with afternoon light
+  - 横長の地平線=縁側 / 暖色の太陽 / 二株の小さな芽
+  - 「並んで座る」「日々を重ねる」の世界観をより情景的に表現
+  - 案Aより物語性が強く、note のアイキャッチにも転用しやすい
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 背景: 朝〜午後の柔らかな空色（さらに薄い暖色） -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF3D6"/>
+      <stop offset="100%" stop-color="#FFFAF0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)"/>
+
+  <!-- 太陽（中央右寄り、低い位置=午後 or 朝） -->
+  <circle cx="320" cy="220" r="64" fill="#FFC857"/>
+  <circle cx="320" cy="220" r="80" fill="none" stroke="#FFAB76" stroke-width="2" opacity="0.3"/>
+
+  <!-- 縁側のライン（地平線、わずかに傾けず水平） -->
+  <line x1="60" y1="340" x2="452" y2="340" stroke="#C9A87C" stroke-width="3" stroke-linecap="round"/>
+  <!-- 縁側の影（下方向への薄い陰影） -->
+  <rect x="60" y="340" width="392" height="4" fill="#A98860" opacity="0.4"/>
+
+  <!-- 二株の芽（縁側の手前に並んで） -->
+  <!-- 親芽（やや大きく、左） -->
+  <g transform="translate(216, 340)">
+    <path d="M 0 0 Q 0 -22 -4 -38" stroke="#7AA77A" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M -4 -36 Q -22 -42 -22 -56 Q -8 -54 -2 -38 Z" fill="#7AA77A"/>
+    <path d="M -2 -32 Q 14 -36 16 -50 Q 4 -50 -2 -34 Z" fill="#A4C293"/>
+  </g>
+
+  <!-- 子芽（やや小さく、右、親芽の少し離れた隣に） -->
+  <g transform="translate(266, 340)">
+    <path d="M 0 0 Q 0 -14 -2 -26" stroke="#A4C293" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M -2 -24 Q -14 -28 -14 -38 Q -4 -36 0 -26 Z" fill="#A4C293"/>
+    <path d="M 0 -22 Q 10 -26 12 -34 Q 4 -34 -1 -24 Z" fill="#C8DCB4"/>
+  </g>
+
+  <!-- 縁側に落ちる柔らかな光（左下から右上への光の帯） -->
+  <path d="M 60 380 L 200 360 L 250 380 L 130 410 Z" fill="#FFE0A3" opacity="0.25"/>
+</svg>
