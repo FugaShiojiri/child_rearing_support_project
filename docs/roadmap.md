@@ -1,8 +1,16 @@
+---
+tags: [strategy, roadmap, phase1]
+status: v0.1
+date: 2026-05-13
+related: [[persona_v0]] [[product_v0_2]] [[phase1_sprint]]
+---
+
 # 事業ロードマップ：月次粗利30万円達成まで
 
-> 策定者: `ceo` SubAgent
+> 策定者: [[ceo|CEO エージェント]]
 > ステータス: v0.1（初版・要検証）
 > 最終更新: 2026-05-13
+> 関連: [[persona_v0]] | [[product_v0_2]] | [[phase1_sprint]] | [[MOC]]
 
 ## 事業目標
 

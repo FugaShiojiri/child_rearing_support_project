@@ -1,9 +1,17 @@
+---
+tags: [strategy, persona, phase1]
+status: draft
+date: 2026-05-13
+related: [[roadmap]] [[product_v0_2]] [[interview_form_v0]]
+---
+
 # ペルソナ v0
 
 > ステータス: ドラフト（要検証）
 > 対象: 日本人保護者 × 0〜6歳児（未就学児）
-> 作成者: ceo SubAgent
+> 作成者: [[ceo|CEO エージェント]]
 > 作成日: 2026-05-13
+> 関連: [[roadmap]] | [[product_v0_2]] | [[interview_form_v0]] | [[MOC]]
 
 ## 年齢帯セグメント判断
 

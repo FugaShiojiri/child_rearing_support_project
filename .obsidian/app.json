@@ -1,0 +1,11 @@
+{
+  "newFileFolderPath": "docs",
+  "newFileLocation": "folder",
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": false,
+  "newLinkFormat": "shortest",
+  "showLineNumber": true,
+  "showInlineTitle": true,
+  "showFrontmatter": true,
+  "promptDelete": true
+}
