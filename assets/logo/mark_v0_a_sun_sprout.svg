@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ひだまりこそだち ロゴマーク v0 案A
+  コンセプト: 陽だまりに芽吹く / Sun + Sprout
+  - 中央の太陽（はちみつ色）= 「ひだまり」
+  - 下の二葉の新芽（親葉と子葉）= 「こそだち（親が育てる + 子が自ら育つ）」
+  - シンプルで万人に伝わる、最も汎用性の高い案
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 背景: クリーム色（円形クロップ前提） -->
+  <rect width="512" height="512" fill="#FFFAF0"/>
+
+  <!-- 太陽の外周（柔らかな光のリング） -->
+  <circle cx="256" cy="220" r="108" fill="none" stroke="#FFAB76" stroke-width="3" opacity="0.35"/>
+
+  <!-- 太陽本体（はちみつ色） -->
+  <circle cx="256" cy="220" r="92" fill="#FFC857"/>
+
+  <!-- 太陽内側のハイライト（左上、午後の光の表現） -->
+  <ellipse cx="232" cy="200" rx="28" ry="22" fill="#FFE0A3" opacity="0.55"/>
+
+  <!-- 新芽: 親葉（少し大きく、左寄り） -->
+  <g transform="translate(256, 358)">
+    <!-- 茎 -->
+    <path d="M -8 32 Q -8 12 -2 -2" stroke="#7AA77A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <!-- 葉（親） -->
+    <path d="M -8 0 Q -38 -18 -40 -50 Q -10 -42 -4 -10 Z" fill="#7AA77A"/>
+  </g>
+
+  <!-- 新芽: 子葉（少し小さく、右寄り） -->
+  <g transform="translate(256, 358)">
+    <!-- 茎 -->
+    <path d="M 8 32 Q 8 18 4 4" stroke="#A4C293" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- 葉（子） -->
+    <path d="M 8 4 Q 30 -10 30 -36 Q 6 -30 4 -6 Z" fill="#A4C293"/>
+  </g>
+
+  <!-- 接地点（地面の薄い影、安定感） -->
+  <ellipse cx="256" cy="394" rx="40" ry="4" fill="#E8DDB5" opacity="0.5"/>
+</svg>
