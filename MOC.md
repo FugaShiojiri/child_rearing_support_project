@@ -68,8 +68,11 @@ description: ひだまりこそだち Vault の全体マップ。ここを起点
 
 ## 📚 ナレッジベース
 
+- **[[knowledge_architecture]] — 3層構造の全体像**（Memory + docs/knowledge + agentmemory）
+- [[agentmemory_setup]] — agentmemory MCP セットアップ手順
 - [[education_theories/README|世界の教育理論一覧]] — Day 1 完了済（20理論 + 補助9件）
 - _Day 2-7 で各理論の詳細ページを追加予定_
+- _今後: docs/knowledge/papers/ に海外論文の整理ページ_
 
 ---
 
