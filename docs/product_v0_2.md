@@ -1,10 +1,19 @@
+---
+tags: [strategy, product, phase1, approved]
+status: current
+date: 2026-05-13
+related: [[roadmap]] [[persona_v0]] [[sns_strategy_v0]] [[auto_posting_v0]]
+supersedes: [[product_v0]] [[product_v0_1]]
+---
+
 # プロダクト v0.2（v0.1 改訂版）
 
-> ステータス: ドラフト
+> ステータス: 採用中（最新版）
 > 対象: ペルソナB（3-6歳）主、ペルソナA（0-2歳）副
-> 作成者: ceo SubAgent
+> 作成者: [[ceo|CEO エージェント]]
 > 作成日: 2026-05-13
 > 主な変更理由: ユーザー確定事項「Claude Code Max 範囲で運用／Claude API 不採用／有料 SaaS は Claude Code 以外採用不可／独自ドメイン購入なし／販売コンテンツは CEO 目視確認」を反映し、アーキテクチャを根本再設計
+> 関連: [[roadmap]] | [[persona_v0]] | [[sns_strategy_v0]] | [[auto_posting_v0]] | [[MOC]]
 
 ---
 
