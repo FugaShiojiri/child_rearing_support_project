@@ -31,22 +31,46 @@ related: [[VAULT_GUIDE]] [[knowledge_architecture]]
 | ローカル埋め込みモデル | `all-MiniLM-L6-v2`（自動 DL、無料） | 初回起動時に取得 |
 | LLM プロバイダ | **不要**（デフォルトでは LLM 呼び出しなし） | - |
 
+### ⚠️ Ubuntu 20.04 + WSL の制約（2026-05-14 検証済）
+
+iii-engine v0.11.2 のバイナリは **GLIBC 2.32 以上** が必要。Ubuntu 20.04 の GLIBC は 2.31 のため、**直接バイナリは動かない**。
+
+選択肢：
+
+- ✅ **Standalone MCP モード**（エンジンなし）で起動 — 本プロジェクトの標準採用
+- 🟡 Docker Desktop on Windows + WSL 連携 → `docker pull iiidev/iii:0.11.2` で完全エンジン化（将来オプション）
+- ⚪ Ubuntu 22.04+ にアップグレード（推奨しない、工数大）
+
+**Standalone MCP で失う可能性のある機能（要実機検証）**:
+- 🟡 Knowledge Graph 連携の一部
+- 🟡 一部の自動キャプチャ フック
+- 🟡 ハイブリッド検索のうち Graph 成分
+- ✅ 基本的な MCP ツール（メモリ保存・Vector 検索）は動作
+- ✅ ローカル埋め込み・semantic 検索は使える
+
+→ 論文検索・要約検索の主要ユースケースは Standalone でも実用十分。
+
 ---
 
 ## セットアップ手順（3 ステップ）
 
-### Step 1: ワーカー起動
+### Step 1: ワーカー起動（Standalone MCP モード）
 
 **専用のターミナルを1つ確保** して、以下を実行：
 
 ```bash
 cd /home/fugashiojiri/child_rearing_support_project
-npx @agentmemory/agentmemory
+npx @agentmemory/agentmemory mcp
 ```
 
-- 初回は依存ダウンロード（iii-engine v0.11.2 等、数十秒）
-- ポート 3111 で REST API が起動
+- `mcp` サブコマンドで **エンジン不要の Standalone MCP モード** を起動
+- 初回は npm package のキャッシュダウンロード（数十秒）
 - **このターミナルは閉じない**（worker が止まると Claude Code から使えなくなる）
+
+> ⚠️ Ubuntu 22.04+ or Docker Desktop が使える環境では、`mcp` を省いてフルエンジンで起動可能：
+> ```bash
+> npx @agentmemory/agentmemory  # フル機能（要 iii-engine）
+> ```
 
 ### Step 2: 動作確認
 
@@ -91,10 +115,10 @@ Claude Code セッション内で：
 
 ```ini
 [Unit]
-Description=agentmemory worker
+Description=agentmemory MCP worker
 
 [Service]
-ExecStart=/usr/bin/env npx @agentmemory/agentmemory
+ExecStart=/usr/bin/env npx @agentmemory/agentmemory mcp
 Restart=on-failure
 WorkingDirectory=%h/child_rearing_support_project
 
@@ -110,7 +134,7 @@ systemctl --user enable --now agentmemory
 ### 方法 B: tmux/screen で常駐
 
 ```bash
-tmux new -d -s agentmemory 'cd ~/child_rearing_support_project && npx @agentmemory/agentmemory'
+tmux new -d -s agentmemory 'cd ~/child_rearing_support_project && npx @agentmemory/agentmemory mcp'
 ```
 
 確認：
@@ -122,7 +146,7 @@ tmux attach -t agentmemory
 ### 方法 C: シンプルにバックグラウンド（セッション限定）
 
 ```bash
-nohup npx @agentmemory/agentmemory > ~/.agentmemory.log 2>&1 &
+nohup npx @agentmemory/agentmemory mcp > ~/.agentmemory.log 2>&1 &
 disown
 ```
 
@@ -156,6 +180,16 @@ npx @agentmemory/agentmemory import-jsonl
 ---
 
 ## トラブルシューティング
+
+### "Could not start iii-engine" / "GLIBC_2.32 not found"
+
+Ubuntu 20.04 環境では iii-engine バイナリが動かない（GLIBC 不足）。
+**対処**: `mcp` サブコマンドで Standalone モード起動：
+```bash
+npx @agentmemory/agentmemory mcp
+```
+
+完全エンジンが必要な場合は Docker Desktop on Windows をインストールし、`docker pull iiidev/iii:0.11.2` で対応。
 
 ### "iii.exe not found" (Windows/WSL)
 
