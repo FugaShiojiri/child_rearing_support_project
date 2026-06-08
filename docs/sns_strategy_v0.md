@@ -88,6 +88,8 @@ Instagram・TikTok・YouTube ショート・Pinterest は **Phase 1〜3 で不�
 ## 推奨チャネルミックス（Phase 別）
 
 > **「能力 ≠ 運用値」原則（CEO決裁 2026-05-22・本書全体に適用）**: オーナー能力開示「週7h動ける／実質2日1本投稿可能（月15本）」は **天井として受け止め・運用値は段階解放**する設計（旧 sns_strategy「日次90本」の轍を踏まない）。連載ペース解放3段・燃え尽き検知ルールは `docs/note/series_plan_v0.md §10` 参照。週バジェット7h配分は [[project-content-capacity]] 参照。
+>
+> **CEO決裁 2026-05-28・本書末尾追補**: 旧 `project-operations-philosophy` 原則3「コミュニティはオフライン中心」を**撤回**（オーナー知人/地域ネットワーク不在が判明＝設計前提誤りはCEO責任として引き受け）。当面の web完結戦略は **`docs/web_only_strategy_v0.md`**（採用2本＝note他クリエイター接触＋タグ最適化／不採用5本＝X押し込み強化等）を**正**とする。本書のチャネル設計はPhase2再設計時に v0.1 改訂予定。
 
 ### Phase 1（Discovery、〜1 ヶ月）
 
