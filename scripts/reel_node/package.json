@@ -1,0 +1,10 @@
+{
+  "name": "hidamari-reel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "色鉛筆絵本リール（@napi-rs/canvas + roughjs）",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.0",
+    "roughjs": "^4.6.6"
+  }
+}

@@ -31,6 +31,7 @@
 - **週次**: 毎週金曜に CEO が `this_week.md` を翌週版へ再生成し、未消化を `backlog.md` の Next へ巻き戻す。見積合計が週15h（自己経営上限）を超えたら Later 送り。
 - 閲覧は Obsidian（本リポジトリが Vault ルート）。運用ルール詳細は `docs/tasks/backlog.md` 末尾の「メンテナンス規約」。
 - **閲覧強化（CEO決裁 2026-05-19）**: Obsidian プラグインは **Dataview のみ採用**（read-only ビュー）。真実源は `backlog.md` で**不変**（Dataview記法・メタデータ手入力はしない）。閲覧ビュー実体は `docs/tasks/board.md`（表示専用・編集禁止）と `this_week.md` の自動抽出ブロック。**Kanban 等の別ファイル板方式は二重管理になるため不採用**（オーナーが入れた obsidian-kanban は撤去済）。依存プラグインは Dataview 1本に固定し増やさない。新規ビューの作り込みは Phase1 完了後に再判断。
+- **web完結シフト（CEO決裁 2026-05-28）**: 旧原則3「コミュニティはオフライン中心」を**撤回・書き換え**（オーナー知人/地域ネットワーク不在が判明・設計前提誤りはCEO責任引き受け＝[[project-distribution-reality]]）。当面のweb集客戦略は `docs/web_only_strategy_v0.md` を**正**とする（採用2本=note他クリエイター誠実接触+タグ最適化／不採用5本=X押し込み強化・Threads前倒し・創作大賞等）。Phase1 G1=20件厳格維持・6/4まで「学びの質」フェーズへ再定義。
 
 ## エージェント委譲ルール（最重要）
 
