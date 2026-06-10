@@ -3,9 +3,10 @@ title: "絵本リール第1本 台本：じぶんで、はく（物語①素材�
 slug: reel02_ehon_kutsushita
 type: instagram_reel_script
 format: "色鉛筆タッチの絵本リール（rough.jsハッチング塗り・全8シーン・朗読ナレーション＋BGM・縦9:16/1080×1920・約31秒・顔あり/点目絵本・全工程無料ツール）"
-status: ceo_approved
+status: published
 ceo_review_required: true
 ceo_reviewed: 2026-06-10
+published: 2026-06-10
 created: 2026-06-07
 updated: 2026-06-08
 author: メインClaude（CEO決裁2026-06-08・v2全面リニューアル承認＝色鉛筆絵本・顔あり解禁・BGM可・@napi-rs/canvas）
