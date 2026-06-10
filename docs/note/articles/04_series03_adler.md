@@ -6,9 +6,11 @@ article_no: 4
 series: "となりの考え方 — 子育ての理論を、親のことばに"
 series_no: 3
 category: series
-status: ceo_approved
+status: published
 ceo_review_required: false
 ceo_reviewed: 2026-06-02
+published: 2026-06-10
+published_url: https://note.com/hidamari_sodachi/n/n9a114e4ed4cd
 created: 2026-06-02
 author: メインClaude（series_plan_v0.md §3フォーマット準拠・既存ナレッジのみ・新規収集なし）
 source:
@@ -111,13 +113,6 @@ tags: [子育て, 育児, ひだまりこそだち, となりの考え方, ア�
 > **次回**: NVC（非暴力コミュニケーション）── 「ダメ！」をどう言い換えるか
 > **毎日のお題は、メンバーシップでお届けしています**（任意・案内ブロック）
 
-――――
-
-いま「ひだまりこそだち」では、子育て中の方にアンケートをお願いしています。どんな話が読みたいか、ふだん何に困っているか、よかったら教えてください。5分ほどで、答えられるところだけで大丈夫です。
-
-▼アンケートはこちら
-https://docs.google.com/forms/d/e/1FAIpQLScVQ7f2ssQrGBr3_07VntFk6aoeFhnZdT9sHvcjF6A2yc-gJA/viewform
-
 ---
 
 ## ドラフトメモ（note 入稿前チェック・本文には含めない）
@@ -131,3 +126,4 @@ https://docs.google.com/forms/d/e/1FAIpQLScVQ7f2ssQrGBr3_07VntFk6aoeFhnZdT9sHvcj
 - タグ（T072最適化・9タグ）: 子育て / 育児 / ひだまりこそだち / となりの考え方 / アドラー / 勇気づけ / 叱らない子育て / 課題の分離 / ほめない。**【入稿時の念押し・CEO申し送り】** 固有名・概念タグ（アドラー/勇気づけ/叱らない子育て/課題の分離/ほめない）が多い。**note側で全9タグが通るか確認し、弾かれたものは汎用タグ（育児の悩み/子育ての悩み）に差し替える**こと。「ひだまりこそだち」も登録不可なら同様に代替（T071実績に準拠）。
 - サムネ: 未生成（親プロセスが `scripts/note_thumbnail.py` で `assets/thumbnails/04_series03_adler.png` を生成・連載共通テンプレ）。
 - **CEO目視ステータス: 承認済（ceo_approved・2026-06-02・バッチ目視T076＋口調自然化に伴いCEO追認）。**
+- **【2026-06-10 公開前修正・オーナー決裁】** 末尾のPhase1アンケート(Form)動線を除去。方針＝Form自体と既収集の回答は**保持**（削除しない）／既公開の00〜03はForm維持／**04以降は記事内Formなし**（05〜07も除去済）。集客導線はプロフィールnote＋コメント接点に一本化（[[phase2_plan_v0]] §3）。
