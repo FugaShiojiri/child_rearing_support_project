@@ -2,9 +2,9 @@
 title: "親子の成長物語 サンプル v0（Threads想定・声の確認用）"
 slug: threads_story_samples_v0
 type: threads_story_samples
-status: draft
+status: ceo_approved
 ceo_review_required: true
-ceo_reviewed: null
+ceo_reviewed: 2026-06-10
 created: 2026-06-03
 author: メインClaude（CEO決裁2026-06-03・物語型は制作前倒し/公開は6/10後・誠実性ガードレール準拠）
 source:
