@@ -1,10 +1,85 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 このファイルは Claude Code (claude.ai/code) がリポジトリ内で作業する際のガイダンスを提供します。
 
 ## プロジェクト概要
 
-子育て支援を目的とした事業プロジェクト（child_rearing_support_project）。日本市場向け、個人/小規模チーム想定。詳細な事業仮説・MVP方針は `ceo` エージェントが管理する。
+子育て支援を目的とした事業プロジェクト（child_rearing_support_project）。日本市場向け、個人/小規模チーム想定。サービス名は「ひだまりこそだち」。詳細な事業仮説・MVP方針は `ceo` エージェントが管理する。
+
+**このリポジトリはコードベースであると同時に Obsidian Vault（Markdown 文書群）**であり、CEO（人間）は Obsidian で `.md` を直接閲覧・編集し、Claude Code は Filesystem 経由で同じファイルを読み書きする協働構成。成果物の中心は「コード」ではなく**戦略文書・知識ベース・SNS 投稿コンテンツ**。Python/Node スクリプトはそのコンテンツを配信・生成するための補助自動化。
+
+## リポジトリ構成とアーキテクチャ（big picture）
+
+全体像は1ファイルでは掴めないので、ここで俯瞰する。詳細記法・運用は `VAULT_GUIDE.md`、文書地図は `MOC.md` を参照。
+
+### 3つの構成要素
+
+1. **Obsidian Vault（`docs/` 中心の Markdown 群）＝正式記録・真実源**
+   - リポジトリルートが Vault ルート。ノート間は `[[wiki-link]]` で連結し、各ノート先頭に YAML front-matter（`tags` / `status: draft|approved|archived` / `date`）を付ける。
+   - `docs/` 直下 = 戦略・設計・実行文書（`roadmap.md` / `persona_v0.md` / `product_v0_*.md` / `phase1_*.md` / `phase2_plan_v0.md` / `monetization_roadmap_v0.md` / `web_only_strategy_v0.md` 等）。`_vN` サフィックスでバージョン管理し、旧版は消さず残す。
+   - `docs/tasks/` = **タスクの真実源**（後述の「セッション開始時の同期」参照）。
+   - `docs/{note,x,instagram,threads}/` = プラットフォーム別の投稿アセット・運用方針。
+   - `docs/drafts/{platform}/YYYY-MM-DD.md` = 投稿ドラフト置き場（front-matter の `approved` フラグで投稿可否を制御）。
+
+2. **知識ベース（`docs/knowledge/`・461ファイル規模）＝コンテンツの原料**
+   - `education_theories/`（tier_s〜tier_c で重要度分類・`_matcher_views/` に横断ビュー）／`books/`（ジャンル別の育児書要約）／`research/`（D1〜D11 のテーマ別論文サマリ）。
+   - これらは連載記事・有料単品記事・親向けガイドPDF の「素材」。`docs/matcher/`（axes/questions/scoring/recommendation）は MBTI 式の子育てタイプ診断ロジック設計。
+   - 知識ベースの3層構造（Memory / docs/knowledge / agentmemory）の役割分担は `docs/knowledge_architecture.md` と memory `[[project-knowledge-architecture]]` に定義。
+
+3. **自動化スクリプト（`scripts/`）＝配信・生成パイプライン**
+   - Python（自動投稿・サムネ生成）と Node（リール動画生成）。`.claude/skills/` の各スキルがこれらを薄くラップし、Claude が「コマンド一発」で呼ぶ。
+
+### コンテンツ配信パイプライン（最重要フロー）
+
+**生成 → CEO目視承認 → 投稿**の3段で、承認ゲートを必ず通す設計：
+
+1. **生成**: `draft-posts` スキル（or 手動執筆）が `docs/drafts/<platform>/YYYY-MM-DD.md` を **`approved: false`** で作成。
+2. **承認**: CEO が内容を目視し front-matter を `approved: true` に変更（販売・配信コンテンツの CEO 目視は不可侵の制約）。
+3. **投稿**: `post-note` / `post-threads` / `post-instagram` スキルが対応 Python スクリプトを呼ぶ。スクリプトは `approved: true` のみ処理し、`--commit` 無しは dry-run。
+   - **note は「下書き保存」までで止め、公開ボタンは CEO が手動で押す**（Phase2 方針）。公式 API が無いため Playwright でブラウザ自動操作しており、note の UI 変更時はセレクター追従が必要。
+   - Threads / Instagram は Meta Graph API。Instagram は画像を Cloudflare R2 にアップロードして公開 URL を得てから投稿（`scripts/lib/r2_uploader.py`）。
+
+### スクリプト構成
+
+- `scripts/post_{note,threads,instagram}.py` — プラットフォーム別自動投稿。`scripts/lib/draft_loader.py`（ドラフト読込）と `r2_uploader.py`（R2）を共有。
+- `scripts/note_thumbnail.py` — note アイキャッチ（1280x670）を HTML/CSS → weasyprint → PyMuPDF で生成。ブランド配色・共通タグライン固定（memory `[[project-note-thumbnail]]`）。
+- `scripts/reel_node/render_full.js` — Instagram 絵本リール動画のフレーム生成（@napi-rs/canvas + roughjs、色鉛筆タッチ）。`node render_full.js` で `frames_full/` に静止画を書き出し、後段で動画化。
+- `scripts/meta_token_refresh.py` — Meta（Threads/Instagram）アクセストークンのリフレッシュ。
+- `scripts/google_form_interview_v1.gs` — Phase1 インタビュー Google Form の GAS（Google 側に貼り付けて使用、ローカル実行なし）。
+- 親向けガイドPDF は weasyprint + pydyf 0.10.0 + Noto Sans CJK JP で生成（成果物は `docs/parents_guides/*.pdf`、方針は memory `[[project-pdf-pipeline]]`）。
+
+### テスト・ビルド・Lint について
+
+**このリポジトリに自動テスト・ビルド・Lint の仕組みは無い**（コンテンツ事業のため）。投稿スクリプトの検証は `--commit` を付けない dry-run 実行が実質のテスト。知識ベースの整合性点検は `docs/knowledge_architecture.md` 記載の手動 Lint（リンク切れ・矛盾・陳腐化・孤立ページ）で、専用ツールは入れず Claude セッション内で実施する方針。
+
+## よく使うコマンド
+
+```bash
+# Python 依存インストール（投稿・サムネ系）
+pip install -r scripts/requirements.txt
+playwright install chromium            # note 投稿に必要
+
+# 環境変数: テンプレをコピーして実値を入れる（.env は .gitignore 済み）
+cp .env.example .env
+
+# 投稿スクリプト（--commit 無し = dry-run、付与 = 実投稿）
+python scripts/post_note.py       --date YYYY-MM-DD            # 下書き保存(dry-run)
+python scripts/post_note.py       --date YYYY-MM-DD --commit   # 実投稿（下書き保存まで・公開はCEO手動）
+python scripts/post_note.py       --date YYYY-MM-DD --commit --headed   # セレクター確認用にブラウザ表示
+python scripts/post_threads.py    --date YYYY-MM-DD --commit
+python scripts/post_instagram.py  --date YYYY-MM-DD --commit
+python scripts/meta_token_refresh.py        # Meta トークン更新
+
+# note サムネ生成
+python3 scripts/note_thumbnail.py --title 'タイトル' --series '連載「…」 第N回' --out assets/thumbnails/xxx.png
+
+# Instagram 絵本リールのフレーム生成
+cd scripts/reel_node && npm install && node render_full.js   # frames_full/ に出力
+```
+
+スキル経由（推奨・Claude が承認ゲートやメッセージ整形まで面倒を見る）: `/post-note`・`/post-threads`・`/post-instagram`・`/draft-posts`・`/show-x-today`（`.claude/skills/` 参照）。
 
 ## セッション開始時の同期（タスク管理・記憶）
 
