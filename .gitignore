@@ -29,8 +29,10 @@ Thumbs.db
 .idea/
 *.swp
 
-# 投稿ログ（後日 GitHub にコミットするか要判断、当面はローカル保管）
-docs/posted_log/
+# 投稿ログ: threads.jsonl のみ追跡（自動投稿の冪等化・インサイト測定・監査の共有真実源）。
+# 他プラットフォームのログは当面ローカル保管。
+docs/posted_log/*
+!docs/posted_log/threads.jsonl
 
 # Obsidian（ユーザー固有状態）
 .obsidian/workspace.json
