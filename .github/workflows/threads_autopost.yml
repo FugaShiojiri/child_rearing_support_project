@@ -1,0 +1,67 @@
+name: Threads 自動投稿
+
+# 毎日定刻に「承認済み(approved:true) かつ 当日(JST)付け」の Threads ドラフトを自動投稿する。
+# - 対象ドラフトが無い日は何もしない（post_threads.py が graceful にスキップ）。
+# - 承認＆日付さえ入れて main に push しておけば、その日に自動で飛ぶ。
+# - 手動実行(workflow_dispatch)では任意の日付を指定可能（テスト用）。
+#
+# 必要な Secrets（Settings → Secrets and variables → Actions）:
+#   META_ACCESS_TOKEN      … Threads 長期アクセストークン（60日で失効→更新時にこの Secret も更新）
+#   META_THREADS_USER_ID   … Threads ユーザーID
+
+on:
+  schedule:
+    # 03:00 UTC = 12:00 JST（毎日）
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: '投稿日 YYYY-MM-DD（JST）。空欄なら JST の本日'
+        required: false
+        default: ''
+
+# 同時実行を1本に絞る（二重投稿防止）
+concurrency:
+  group: threads-autopost
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # posted_log の追記を main へコミットバックするため
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install minimal deps（Threads投稿に必要な分のみ）
+        run: pip install python-dotenv python-frontmatter requests click
+
+      - name: Post approved Threads draft for the day (JST)
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          META_THREADS_USER_ID: ${{ secrets.META_THREADS_USER_ID }}
+          INPUT_DATE: ${{ github.event.inputs.date }}
+        run: |
+          DATE="${INPUT_DATE:-$(TZ=Asia/Tokyo date +%F)}"
+          echo "対象日(JST): $DATE"
+          python3 scripts/post_threads.py --date "$DATE" --commit
+
+      - name: Commit posted_log back to main if changed
+        if: always()
+        run: |
+          if [[ -n "$(git status --porcelain docs/posted_log/threads.jsonl)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add docs/posted_log/threads.jsonl
+            git commit -m "chore(threads): 自動投稿ログ追記 [skip ci]"
+            git push
+          else
+            echo "posted_log に変更なし（投稿対象なし or 失敗）"
+          fi

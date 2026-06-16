@@ -142,6 +142,34 @@ def _get_required_env(name: str) -> str:
     return v
 
 
+def _already_posted_paths() -> set[str]:
+    """posted_log から投稿済みの draft_path 集合を読む（冪等化＝二重投稿防止）。
+
+    定期実行(cron)で同じ承認済みドラフトを毎日叩いても再投稿しないために使う。
+
+    Returns:
+        投稿済みドラフトの相対パス文字列の集合。ログが無ければ空集合。
+    """
+    import json
+
+    log_path = PROJECT_ROOT / "docs" / "posted_log" / "threads.jsonl"
+    posted: set[str] = set()
+    if not log_path.exists():
+        return posted
+    for line in log_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        dp = rec.get("draft_path")
+        if dp and rec.get("post_id"):
+            posted.add(dp)
+    return posted
+
+
 @click.command(help="Threads に承認済みドラフトを投稿する。")
 @click.option(
     "--date",
@@ -185,8 +213,16 @@ def main(date: str, commit: bool) -> None:
     access_token = _get_required_env("META_ACCESS_TOKEN")
     user_id = _get_required_env("META_THREADS_USER_ID")
 
+    posted_paths = _already_posted_paths()
+
     success = 0
+    skipped = 0
     for i, d in enumerate(drafts, 1):
+        rel = str(d.path.relative_to(PROJECT_ROOT))
+        if rel in posted_paths:
+            click.echo(f"[SKIP] {d.path.name}: 投稿済み（posted_log に記録あり）")
+            skipped += 1
+            continue
         text = build_post_text(d)
         logger.info(
             "[%d/%d] 投稿開始 path=%s preview=%s",
@@ -213,7 +249,7 @@ def main(date: str, commit: bool) -> None:
             logger.exception("投稿失敗: %s", d.path)
             click.echo(f"[FAIL] {d.path.name}: {exc}", err=True)
 
-    click.echo(f"\n完了: {success}/{len(drafts)} 件成功")
+    click.echo(f"\n完了: {success}/{len(drafts)} 件成功 (スキップ {skipped} 件=投稿済み)")
 
 
 if __name__ == "__main__":
