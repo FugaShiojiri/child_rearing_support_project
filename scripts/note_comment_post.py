@@ -109,9 +109,10 @@ def _post_one(page, entry: dict[str, Any], own: bool) -> dict[str, Any]:
     ta.fill(comment)  # fill は改行（\n）を保持し、Enter誤送信もしない
     page.wait_for_timeout(1500)
 
-    # 送信ボタン（入力後に出現）。note UI 変更時は要追従＝初回 --headed 推奨
+    # 送信ボタン（入力後に出現・テキスト無しの aria-label='送信' アイコンボタン）。
+    # note UI 変更時は要追従＝初回 --headed 推奨。
     submit = page.locator(
-        "button:has-text('投稿'), button:has-text('コメントする'), button:has-text('送信')"
+        "button[aria-label='送信'], button:has-text('コメントする'), button:has-text('投稿する')"
     ).first
     submit.wait_for(state="visible", timeout=10000)
     submit.click()
