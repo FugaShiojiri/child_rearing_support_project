@@ -251,6 +251,13 @@ def main(date: str, commit: bool) -> None:
 
     click.echo(f"\n完了: {success}/{len(drafts)} 件成功 (スキップ {skipped} 件=投稿済み)")
 
+    # 投稿失敗があれば非ゼロ終了する（CI/cron が "緑なのに未投稿" を見逃さないため）。
+    # 失敗 = 対象ドラフトのうち、スキップでも成功でもなかったもの。空打ち(0件)は失敗ではない。
+    failures = len(drafts) - skipped - success
+    if failures > 0:
+        click.echo(f"[ERROR] {failures}件の投稿に失敗しました（詳細は上記ログ）。", err=True)
+        raise SystemExit(1)
+
 
 if __name__ == "__main__":
     main()
