@@ -6,9 +6,11 @@ article_no: 5
 series: "となりの考え方 — 子育ての理論を、親のことばに"
 series_no: 4
 category: series
-status: ceo_approved
+status: published
 ceo_review_required: false
 ceo_reviewed: 2026-06-02
+published: 2026-06-17
+published_url: "（URL要確認・オーナーにNVC記事URLを確認）"
 created: 2026-06-02
 author: メインClaude（series_plan_v0.md §3フォーマット準拠・既存ナレッジのみ・新規収集なし）
 source:
