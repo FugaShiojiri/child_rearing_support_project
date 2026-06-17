@@ -24,6 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - `docs/` 直下 = 戦略・設計・実行文書（`roadmap.md` / `persona_v0.md` / `product_v0_*.md` / `phase1_*.md` / `phase2_plan_v0.md` / `monetization_roadmap_v0.md` / `web_only_strategy_v0.md` 等）。`_vN` サフィックスでバージョン管理し、旧版は消さず残す。
    - `docs/tasks/` = **タスクの真実源**（後述の「セッション開始時の同期」参照）。
    - `docs/{note,x,instagram,threads}/` = プラットフォーム別の投稿アセット・運用方針。
+   - `docs/note/articles/0N_seriesMM_slug.md` = 主力コンテンツの連載「となりの考え方」本体。**`0N`＝通し番号(article_no・00募集/01マニフェスト含む)、`seriesMM`＝連載内の回数(series_no) で別物**（例: `06_series05_shiomi`＝ファイル6本目・連載第5回）。オーナーの言う「投稿N」は **series_no** を指すことが多く取り違え注意。執筆トーンの現行標準は**公開済の 06/07**（普段の話し言葉・一人称「自分」・「うち」不使用・詩的定型句なし＝memory `[[feedback-writing-tone]]`）で、`series_plan_v0.md` §3/§6 の旧サンプルにある「陽だまりに腰をおろすように」等の定型句は2026-06-02に全撤去済なので**踏襲しない**。front-matter の `status` は `draft→ceo_approved→published`（公開時に `published`/`published_url` を記録）。
    - `docs/drafts/{platform}/YYYY-MM-DD.md` = 投稿ドラフト置き場（front-matter の `approved` フラグで投稿可否を制御）。
 
 2. **知識ベース（`docs/knowledge/`・461ファイル規模）＝コンテンツの原料**
@@ -47,7 +48,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### スクリプト構成
 
 - `scripts/post_{note,threads,instagram}.py` — プラットフォーム別自動投稿。`scripts/lib/draft_loader.py`（ドラフト読込）と `r2_uploader.py`（R2）を共有。
-- `scripts/note_thumbnail.py` — note アイキャッチ（1280x670）を HTML/CSS → weasyprint → PyMuPDF で生成。ブランド配色・共通タグライン固定（memory `[[project-note-thumbnail]]`）。
+- `scripts/note_thumbnail.py` — note アイキャッチ（1280x670）を HTML/CSS → weasyprint → PyMuPDF で生成。ブランド配色・共通タグライン固定（memory `[[project-note-thumbnail]]`）。引数は `--title`（hook部）/`--series`（例 `連載「となりの考え方」 第N回`）/`--subtitle`（サブタイトル）/`--out`。
+- `scripts/format_note_linebreaks.py` — 連載記事本文をモバイル可読の改行（句点ごと改行＋長文は読点で分割・`**太字**`/括弧は保護）に整形（文字は変えず改行のみ挿入・本文領域のみ）。新規連載記事は公開前にこれを通す（`python3 scripts/format_note_linebreaks.py <article.md>`・方針 memory `[[feedback-note-linebreaks]]`）。
 - `scripts/reel_node/render_full.js` — Instagram 絵本リール動画のフレーム生成（@napi-rs/canvas + roughjs、色鉛筆タッチ）。`node render_full.js` で `frames_full/` に静止画を書き出し、後段で動画化。
 - `scripts/meta_token_refresh.py` — Meta（Threads/Instagram）アクセストークンのリフレッシュ。
 - `scripts/google_form_interview_v1.gs` — Phase1 インタビュー Google Form の GAS（Google 側に貼り付けて使用、ローカル実行なし）。
@@ -99,7 +101,7 @@ cd scripts/reel_node && npm install && node render_full.js   # frames_full/ に�
 
 ### タスク管理
 
-タスクの **単一の真実源** は `docs/tasks/backlog.md`、当週のビューは `docs/tasks/this_week.md`。
+タスクの **単一の真実源** は `docs/tasks/backlog.md`、当週のビューは `docs/tasks/this_week.md`、全チャネルの投稿予定（いつ・どこに・何を出すか）の表示専用ビューは `docs/tasks/posting_schedule.md`（真実源は backlog・二重管理しない・CEO が同期更新・手編集しない）。
 
 - **セッション開始時**: メインClaudeは `docs/tasks/this_week.md` → `docs/tasks/backlog.md` の順に Read し、現在の状況・優先タスクを把握してから作業に入る。
 - **セッション開始時のリマインド（必須・通知方式=C 確定／ユーザー選択 2026-05-18）**: `this_week.md` の「📌 リマインダー：日付固定の手元作業」を確認し、**本日が期日 or 期日超過の未完(⬜)作業があれば、最初の応答の冒頭でユーザーに知らせる**（例:「本日5/21です。集客記事の note 入稿＋知人配布が今日の作業です」）。**期日超過分も必ず拾う**（その日に開かなくても、次に開いた時に取りこぼし作業を冒頭で知らせる）。期日のものが無ければ言及不要。
