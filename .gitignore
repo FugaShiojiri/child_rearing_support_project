@@ -3,6 +3,9 @@
 .env.local
 .env.*.local
 
+# ブラウザログインセッション（note storage_state 等・機密・コミット禁止）
+.auth/
+
 # Python
 __pycache__/
 *.py[cod]
