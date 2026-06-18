@@ -1,9 +1,12 @@
 ---
-approved: false
-date: 2026-06-18
-type: carousel
+title: "声かけカルーセル①：つい言っちゃう言葉、ちょっと言い換え（3つ）"
+slug: carousel01_koekake_iikae
+type: instagram_carousel
 theme: 声かけ言い換え①（つい言っちゃう言葉／NVC連載05と連動）
 slides: 5
+status: ceo_approved
+scheduled_post: 2026-06-18
+owner_approved: false   # 投稿承認の正は docs/drafts/instagram/2026-06-18.md の approved フラグ（手動投稿のため、オーナーがアプリで投稿＝承認）
 hashtags: [育児, 子育て, 声かけ, イヤイヤ期, ひだまりこそだち]
 note_link: プロフィールのnote（連載05「『何回言ったらわかるの』が口ぐせになった日」と連動）
 images:
@@ -12,14 +15,15 @@ images:
   - assets/instagram/2026-06-18/slide_03.png
   - assets/instagram/2026-06-18/slide_04.png
   - assets/instagram/2026-06-18/slide_05.png
+pipeline_draft: docs/drafts/instagram/2026-06-18.md
 generated_by: scripts/instagram_carousel.py
-canonical: docs/instagram/carousel01_koekake_iikae.md   # 文面の正本はこちら。本ファイルは投稿パイプライン用の一時ステージ
+related: [[reel02_ehon_kutsushita]] [[profile_v0]]
 ---
 
-# Instagram 声かけカルーセル①（5枚）
+> **このファイルが Instagram カルーセル投稿内容の正本（残す記録）。** 文面を直す時はここを編集し、投稿パイプライン用の `docs/drafts/instagram/2026-06-18.md`（approved フラグ・画像生成・キャプション）へ反映する。ドラフトは一時ステージ、本ファイルは恒久アーカイブ（reel01/reel02 と同じ住み分け）。
+> ブランド：色鉛筆タッチ／ひだまり配色／非権威・断定しない・普段の話し言葉。NG語（絶対/必ず/○歳までに/天才/手遅れ 等）不使用。「正解はひとつ」と言わない。
 
-> ブランド：色鉛筆タッチ／ひだまり配色／非権威・断定しない・普段の話し言葉。
-> NG語（絶対/必ず/○歳までに/天才/手遅れ 等）不使用。「正解はひとつ」と言わない。
+# Instagram 声かけカルーセル①（5枚）
 
 ## スライド本文
 

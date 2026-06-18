@@ -1,9 +1,12 @@
 ---
-approved: true
-date: 2026-06-20
-type: carousel
+title: "声かけカルーセル②：泣き止ませる前に、気持ちに名前をつける"
+slug: carousel02_kimochi_namae
+type: instagram_carousel
 theme: 気持ちに名前をつける（感情の言語化／ゴットマン・NVC連動）
 slides: 5
+status: ceo_approved
+scheduled_post: 2026-06-20
+owner_approved: true   # docs/drafts/instagram/2026-06-20.md の approved: true（オーナー承認済み）
 hashtags: [育児, 子育て, 声かけ, 感情, ひだまりこそだち]
 note_link: プロフィールのnote（連載「となりの考え方」NVC/アドラーの回と連動）
 images:
@@ -12,14 +15,15 @@ images:
   - assets/instagram/2026-06-20/slide_03.png
   - assets/instagram/2026-06-20/slide_04.png
   - assets/instagram/2026-06-20/slide_05.png
+pipeline_draft: docs/drafts/instagram/2026-06-20.md
 generated_by: scripts/instagram_carousel.py
-canonical: docs/instagram/carousel02_kimochi_namae.md   # 文面の正本はこちら。本ファイルは投稿パイプライン用の一時ステージ
+related: [[carousel01_koekake_iikae]] [[reel02_ehon_kutsushita]] [[profile_v0]]
 ---
 
-# Instagram 声かけカルーセル②（5枚）
+> **このファイルが Instagram カルーセル投稿内容の正本（残す記録）。** 文面を直す時はここを編集し、投稿パイプライン用の `docs/drafts/instagram/2026-06-20.md`（approved フラグ・画像生成・キャプション）へ反映する。ドラフトは一時ステージ、本ファイルは恒久アーカイブ。
+> ブランド：色鉛筆タッチ／ひだまり配色／非権威・断定しない・普段の話し言葉。NG語（絶対/必ず/○歳までに/天才/手遅れ 等）不使用。「正解はひとつ」と言わない。
 
-> ブランド：色鉛筆タッチ／ひだまり配色／非権威・断定しない・普段の話し言葉。
-> NG語（絶対/必ず/○歳までに/天才/手遅れ 等）不使用。「正解はひとつ」と言わない。
+# Instagram 声かけカルーセル②（5枚）
 
 ## スライド本文
 

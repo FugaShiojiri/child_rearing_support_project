@@ -1,9 +1,12 @@
 ---
-approved: true
-date: 2026-06-25
-type: carousel
+title: "声かけカルーセル③：『自分でやりたい』を支える家のちょい工夫"
+slug: carousel03_ouchi_monte
+type: instagram_carousel
 theme: 「自分でやりたい」を支える家のちょい工夫（モンテッソーリ・汐見連動）
 slides: 5
+status: ceo_approved
+scheduled_post: 2026-06-25
+owner_approved: true   # docs/drafts/instagram/2026-06-25.md の approved: true（オーナー承認済み）
 hashtags: [育児, 子育て, モンテッソーリ, おうちモンテ, ひだまりこそだち]
 note_link: プロフィールのnote（連載「となりの考え方」モンテッソーリ/汐見の回と連動）
 images:
@@ -12,14 +15,15 @@ images:
   - assets/instagram/2026-06-25/slide_03.png
   - assets/instagram/2026-06-25/slide_04.png
   - assets/instagram/2026-06-25/slide_05.png
+pipeline_draft: docs/drafts/instagram/2026-06-25.md
 generated_by: scripts/instagram_carousel.py
-canonical: docs/instagram/carousel03_ouchi_monte.md   # 文面の正本はこちら。本ファイルは投稿パイプライン用の一時ステージ
+related: [[carousel01_koekake_iikae]] [[carousel02_kimochi_namae]] [[profile_v0]]
 ---
 
-# Instagram 声かけカルーセル③（5枚）
+> **このファイルが Instagram カルーセル投稿内容の正本（残す記録）。** 文面を直す時はここを編集し、投稿パイプライン用の `docs/drafts/instagram/2026-06-25.md`（approved フラグ・画像生成・キャプション）へ反映する。ドラフトは一時ステージ、本ファイルは恒久アーカイブ。
+> ブランド：色鉛筆タッチ／ひだまり配色／非権威・断定しない・普段の話し言葉。NG語（絶対/必ず/○歳までに/天才/手遅れ 等）不使用。「正解はひとつ」と言わない。
 
-> ブランド：色鉛筆タッチ／ひだまり配色／非権威・断定しない・普段の話し言葉。
-> NG語（絶対/必ず/○歳までに/天才/手遅れ 等）不使用。「正解はひとつ」と言わない。
+# Instagram 声かけカルーセル③（5枚）
 
 ## スライド本文
 
