@@ -32,8 +32,10 @@ Thumbs.db
 .idea/
 *.swp
 
-# 投稿ログ docs/posted_log/ は追跡する（クラウド自動投稿の二重投稿防止＝共有真実源・2026-06-17）。
-# post_id/日付のみで秘匿情報なし。
+# 投稿ログ: threads.jsonl のみ追跡（自動投稿の冪等化・インサイト測定・監査の共有真実源）。
+# 他プラットフォームのログは当面ローカル保管。
+docs/posted_log/*
+!docs/posted_log/threads.jsonl
 
 # Obsidian（ユーザー固有状態）
 .obsidian/workspace.json
